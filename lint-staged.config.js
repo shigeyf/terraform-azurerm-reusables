@@ -22,13 +22,13 @@ const config = {
   // [YAML]
   //'**/*.{yaml,yml}': (filenames) => filenames.map((filename) => `npm run prettier:lint-staged '${filename}'`),
   // [Terraform]
-  //'**/*.tf': (filenames) => {
-  //  const formatter = filenames.map((filename) => `terraform fmt '${filename}'`);
-  //  const directories = filenames.map((filename) => path.dirname(filename));
-  //  const uniqueDirectories = [...new Set(directories)];
-  //  const linter = uniqueDirectories.map((dir) => `tflint --chdir=${dir}`);
-  //  return formatter.concat(linter);
-  //},
+  '**/*.tf': (filenames) => {
+    const formatter = filenames.map((filename) => `terraform fmt '${filename}'`);
+    const directories = filenames.map((filename) => path.dirname(filename));
+    const uniqueDirectories = [...new Set(directories)];
+    const linter = uniqueDirectories.map((dir) => `tflint --chdir=${dir}`);
+    return formatter.concat(linter);
+  },
   // [JS/TS/Vue]
   // '**/*.{js,jsx,ts,tsx,vue}': (filenames) => filenames.map((filename) => `npm run eslint:lint-staged '${filename}'`),
   // [CSS/SASS/SCSS]
