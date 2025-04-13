@@ -11,3 +11,12 @@ resource "azurerm_role_assignment" "ra" {
     azurerm_storage_account.this,
   ]
 }
+
+# This resource is used to ensure that the role assignment is created after the Key Vault is created.
+resource "time_sleep" "wait_for_ra_propagation" {
+  create_duration = var.ra_propagation_time
+  depends_on = [
+    azurerm_user_assigned_identity.this,
+    azurerm_role_assignment.ra_,
+  ]
+}

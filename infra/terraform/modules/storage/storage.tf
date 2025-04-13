@@ -1,8 +1,8 @@
 // storage.tf
 
 # This resource is used to ensure that the role assignment is created after the Key Vault is created.
-resource "time_sleep" "wait_for_propagation" {
-  create_duration = "120s"
+resource "time_sleep" "wait_for_kv_ra_propagation" {
+  create_duration = var.ra_propagation_time
   depends_on = [
     azurerm_user_assigned_identity.this,
     azurerm_role_assignment.ra_kv,
@@ -42,8 +42,8 @@ resource "azurerm_storage_account" "this" {
   }
 
   depends_on = [
+    time_sleep.wait_for_kv_ra_propagation,
     azurerm_user_assigned_identity.this,
     azurerm_role_assignment.ra_kv,
-    time_sleep.wait_for_propagation,
   ]
 }

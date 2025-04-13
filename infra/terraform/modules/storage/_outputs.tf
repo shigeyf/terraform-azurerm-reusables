@@ -8,3 +8,8 @@ output "private_storage" {
   }
   description = "Ids for Storage resources"
 }
+
+output "ra_propagation_delay" {
+  value       = time_sleep.wait_for_ra_propagation.id
+  description = "Delay for role assignments propagation"
+}

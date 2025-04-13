@@ -5,6 +5,12 @@ variable "keyvault_id" {
   description = "Key Vault Id"
 }
 
+variable "ra_propagation_time" {
+  type        = string
+  description = "Wait seconds to propagate role assignments"
+  default     = "60s"
+}
+
 variable "role_assignments" {
   type = list(object({
     principal_id         = string
