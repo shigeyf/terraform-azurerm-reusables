@@ -8,3 +8,9 @@ variable "role_assignments" {
   description = "Role assignments"
   default     = []
 }
+
+variable "ra_propagation_time" {
+  type        = string
+  description = "Wait seconds to propagate role assignments"
+  default     = "60s"
+}

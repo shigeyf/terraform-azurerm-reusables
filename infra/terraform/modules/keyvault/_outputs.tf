@@ -8,3 +8,8 @@ output "output" {
   }
   description = "Output Ids for KeyVault resources"
 }
+
+output "ra_propagation_delay" {
+  value       = time_sleep.wait_for_ra_propagation.id
+  description = "Delay for role assignments propagation"
+}

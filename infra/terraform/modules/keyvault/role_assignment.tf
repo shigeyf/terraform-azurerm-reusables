@@ -11,3 +11,10 @@ resource "azurerm_role_assignment" "ra" {
     azurerm_key_vault.this,
   ]
 }
+
+resource "time_sleep" "wait_for_ra_propagation" {
+  create_duration = var.ra_propagation_time
+  depends_on = [
+    azurerm_role_assignment.ra,
+  ]
+}
