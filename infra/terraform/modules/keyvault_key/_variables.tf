@@ -27,12 +27,3 @@ variable "key_policy" {
   })
   description = "KeyVault Key Policy"
 }
-
-variable "role_assignment_dependencies" {
-  type = list(object({
-    principal_id         = string
-    role_definition_name = string
-  }))
-  description = "Role assignments required to generate this key"
-  default     = []
-}

@@ -1,13 +1,5 @@
 // key.tf
 
-# This resource is used to ensure that the role assignment is created after the Key Vault is created.
-resource "time_sleep" "wait_for_propagation" {
-  create_duration = "120s"
-  depends_on = [
-    var.role_assignment_dependencies,
-  ]
-}
-
 resource "azurerm_key_vault_key" "this" {
   name         = var.key_name
   key_vault_id = var.keyvault_id
@@ -32,8 +24,4 @@ resource "azurerm_key_vault_key" "this" {
     expire_after         = var.key_policy.rotation_policy.expire_after
     notify_before_expiry = var.key_policy.rotation_policy.notify_before_expiry
   }
-
-  depends_on = [
-    time_sleep.wait_for_propagation,
-  ]
 }
