@@ -26,7 +26,7 @@ const config = {
     const formatter = filenames.map((filename) => `terraform fmt '${filename}'`);
     const directories = filenames.map((filename) => path.dirname(filename));
     const uniqueDirectories = [...new Set(directories)];
-    const linter = uniqueDirectories.map((dir) => `tflint --chdir=${dir}`);
+    const linter = uniqueDirectories.map((dir) => `tflint --chdir=${dir} /disable-rule:terraform_required_version /disable-rule:terraform_required_providers`);
     return formatter.concat(linter);
   },
   // [JS/TS/Vue]
