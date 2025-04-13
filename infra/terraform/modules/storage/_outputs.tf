@@ -1,6 +1,6 @@
 // _outputs.tf
 
-output "private_storage" {
+output "output" {
   value = {
     storage_id     = azurerm_storage_account.this.id
     storage_uai_id = azurerm_user_assigned_identity.this.id
