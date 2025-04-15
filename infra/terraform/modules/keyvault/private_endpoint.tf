@@ -9,7 +9,7 @@ resource "azurerm_private_endpoint" "this" {
   subnet_id           = var.private_endpoint_subnet_id
 
   private_service_connection {
-    name                           = "connection-${azurerm_key_vault.this.id}"
+    name                           = "connection-${azurerm_key_vault.this.name}"
     private_connection_resource_id = azurerm_key_vault.this.id
     is_manual_connection           = false
     subresource_names              = [local.subresource_name]
