@@ -23,9 +23,21 @@ variable "account_tier" {
   default     = "Standard"
 }
 
+variable "enable_user_assigned_identity" {
+  type        = bool
+  description = "Enable user-assigned managed identity"
+  default     = false
+}
+
 variable "storage_uami_name" {
   type        = string
   description = "User-assigned managed identity name"
+  default     = null
+
+  validation {
+    condition     = !(var.enable_user_assigned_identity && var.storage_uami_name == null)
+    error_message = "'storage_uami_name' must be set if 'enable_user_assigned_identity' is enabled."
+  }
 }
 
 variable "customer_managed_key_id" {

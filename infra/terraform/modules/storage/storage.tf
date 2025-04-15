@@ -2,11 +2,17 @@
 
 # This resource is used to ensure that the role assignment is created after the Key Vault is created.
 resource "time_sleep" "wait_for_kv_ra_propagation" {
+  count           = var.enable_user_assigned_identity ? 1 : 0
   create_duration = var.ra_propagation_time
   depends_on = [
     azurerm_user_assigned_identity.this,
     azurerm_role_assignment.ra_kv,
   ]
+}
+
+locals {
+  identity_type = var.enable_user_assigned_identity ? "SystemAssigned, UserAssigned" : "SystemAssigned"
+  identity_ids  = var.enable_user_assigned_identity ? [azurerm_user_assigned_identity.this[0].id] : null
 }
 
 resource "azurerm_storage_account" "this" {
@@ -26,18 +32,16 @@ resource "azurerm_storage_account" "this" {
   public_network_access_enabled   = var.enable_public_network_access
 
   identity {
-    type = "UserAssigned"
-    identity_ids = [
-      azurerm_user_assigned_identity.this.id,
-    ]
+    type         = local.identity_type
+    identity_ids = local.identity_ids
   }
 
   dynamic "customer_managed_key" {
-    for_each = var.customer_managed_key_id != null ? [1] : []
+    for_each = var.customer_managed_key_id != null && var.enable_user_assigned_identity ? [1] : []
     content {
       key_vault_key_id = var.customer_managed_key_id
       // Do not add key version in the key_id here, it will be automatically set to the latest version of the key
-      user_assigned_identity_id = azurerm_user_assigned_identity.this.id
+      user_assigned_identity_id = azurerm_user_assigned_identity.this[0].id
     }
   }
 

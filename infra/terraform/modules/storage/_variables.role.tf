@@ -3,12 +3,13 @@
 variable "keyvault_id" {
   type        = string
   description = "Key Vault Id"
+  default     = null
 }
 
 variable "ra_propagation_time" {
   type        = string
   description = "Wait seconds to propagate role assignments"
-  default     = "60s"
+  default     = "0s"
 }
 
 variable "role_assignments" {
