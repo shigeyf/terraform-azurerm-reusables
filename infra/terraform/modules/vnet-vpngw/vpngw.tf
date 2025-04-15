@@ -21,8 +21,11 @@ resource "azurerm_virtual_network_gateway" "this" {
     subnet_id                     = var.subnet_id
   }
 
-  vpn_client_configuration {
-    address_space = var.vpn_client_address_space
+  dynamic "vpn_client_configuration" {
+    for_each = length(var.vpn_client_address_space) != 0 ? [1] : []
+    content {
+      address_space = var.vpn_client_address_space
+    }
   }
 
   depends_on = [
