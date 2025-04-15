@@ -69,6 +69,7 @@ module "test5" {
   private_endpoint_subnet_id    = module.vnet.output.subnet_ids["private-endpoints"]
   private_endpoint_name         = "${local.private_endpoint_name}0005"
   enable_user_assigned_identity = false
+  private_dns_zone_ids          = [azurerm_private_dns_zone.blob.id]
 }
 
 // #6 - Storage with Private Endpoint, Key Vault, and user-assigned managed identity and auto-rotated customer managed key
@@ -85,5 +86,5 @@ module "test6" {
   storage_uami_name             = "${local.uami_prefix}-${local.storage_account_name}0006"
   keyvault_id                   = module.kv.output.keyvault_id
   customer_managed_key_id       = module.key2.output.key_versionless_id
-  private_dns_zone_ids          = [azurerm_private_dns_zone.storage.id]
+  private_dns_zone_ids          = [azurerm_private_dns_zone.blob.id]
 }

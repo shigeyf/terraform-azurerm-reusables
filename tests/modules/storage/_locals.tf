@@ -16,7 +16,7 @@ locals {
   naming_suffix  = "${local.test_case_name}-${local.random}"
   location       = "japanwest"
   tags = {
-    "projectTag" = "terraform-azurerm-reusables"
+    "projectTag" = "github.com/shigeyf/terraform-azurerm-reusables"
     "envTag"     = "dev"
     "purposeTag" = "test"
   }
