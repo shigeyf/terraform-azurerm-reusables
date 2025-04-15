@@ -16,12 +16,18 @@ resource "azurerm_key_vault_key" "this" {
     "wrapKey",
   ]
 
-  rotation_policy {
-    automatic {
-      time_after_creation = var.key_policy.rotation_policy.automatic.time_after_creation
-      time_before_expiry  = var.key_policy.rotation_policy.automatic.time_before_expiry
+  dynamic "rotation_policy" {
+    for_each = var.key_policy.rotation_policy != null ? [1] : []
+    content {
+      dynamic "automatic" {
+        for_each = var.key_policy.rotation_policy.automatic != null ? [1] : []
+        content {
+          time_after_creation = var.key_policy.rotation_policy.automatic.time_after_creation
+          time_before_expiry  = var.key_policy.rotation_policy.automatic.time_before_expiry
+        }
+      }
+      expire_after         = var.key_policy.rotation_policy.expire_after
+      notify_before_expiry = var.key_policy.rotation_policy.notify_before_expiry
     }
-    expire_after         = var.key_policy.rotation_policy.expire_after
-    notify_before_expiry = var.key_policy.rotation_policy.notify_before_expiry
   }
 }
