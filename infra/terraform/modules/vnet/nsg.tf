@@ -1,12 +1,18 @@
 // nsg.tf
 
+# TODO: Need to add a logic of name-length validation
+locals {
+  _vnet_name_array = split("-", var.vnet_name)
+  _nsg_basename    = join("-", [var.nsg_name_prefix], slice(local._vnet_name_array, 1, length(local._vnet_name_array)))
+}
+
 resource "azurerm_network_security_group" "this" {
   # No NSG for GatewaySubnet
   for_each = { for index, subnet in var.subnets : index => subnet if subnet.name != local.gateway_subnet_fixed_name }
   name = (
     each.value.naming_prefix_enabled
-    ? "${var.nsg_name_prefix}-${var.subnet_name_prefix}-${each.value.name}"
-    : "${var.nsg_name_prefix}-${each.value.name}"
+    ? "${local._nsg_basename}-${var.subnet_name_prefix}-${each.value.name}"
+    : "${local._nsg_basename}-${each.value.name}"
   )
   location            = var.location
   resource_group_name = var.resource_group_name

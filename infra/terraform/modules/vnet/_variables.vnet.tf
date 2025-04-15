@@ -19,7 +19,7 @@ variable "subnet_name_prefix" {
 variable "nsg_name_prefix" {
   description = "Network Security Group name prefix"
   type        = string
-  default     = "snet"
+  default     = "nsg"
 }
 
 variable "subnets" {
