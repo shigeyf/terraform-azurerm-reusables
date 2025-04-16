@@ -1,15 +1,9 @@
 // _variables.role.tf
 
-variable "keyvault_id" {
-  type        = string
-  description = "Key Vault Id"
-  default     = null
-}
-
 variable "ra_propagation_time" {
   type        = string
   description = "Wait seconds to propagate role assignments"
-  default     = "0s"
+  default     = "60s"
 }
 
 variable "role_assignments" {

@@ -40,10 +40,33 @@ variable "storage_uami_name" {
   }
 }
 
-variable "customer_managed_key_id" {
+variable "enable_customer_managed_key" {
+  type        = bool
+  description = "Enable customer-managed key"
+  default     = false
+}
+
+
+variable "keyvault_id" {
   type        = string
-  description = "Customer-managed Key Id (normail key id or version-less key id)"
+  description = "Key Vault Id"
   default     = null
+
+  validation {
+    condition     = !(var.enable_customer_managed_key && var.keyvault_id == null)
+    error_message = "'keyvault_id' must be set if 'enable_customer_managed_key' is enabled."
+  }
+}
+
+variable "customer_managed_key_name" {
+  type        = string
+  description = "Customer-managed Key name"
+  default     = null
+
+  validation {
+    condition     = !(var.enable_customer_managed_key && var.customer_managed_key_name == null)
+    error_message = "'customer_managed_key_name' must be set if 'enable_customer_managed_key' is enabled."
+  }
 }
 
 variable "containers" {
