@@ -10,6 +10,12 @@ variable "keyvault_id" {
   description = "KeyVault Id"
 }
 
+variable "expiration_date" {
+  type        = string
+  description = "Key expiration date"
+  default     = null
+}
+
 variable "key_policy" {
   type = object(
     {
