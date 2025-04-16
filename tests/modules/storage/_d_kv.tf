@@ -22,9 +22,10 @@ resource "null_resource" "wait_for_propagation" {
 }
 
 module "key1" {
-  source      = "../../../infra/terraform/modules/keyvault_key"
-  key_name    = "${local.key_name}-001"
-  keyvault_id = module.kv.output.keyvault_id
+  source          = "../../../infra/terraform/modules/keyvault_key"
+  key_name        = "${local.key_name}-001"
+  keyvault_id     = module.kv.output.keyvault_id
+  expiration_date = timeadd(timestamp(), "1h")
   key_policy = {
     key_type = "RSA"
     key_size = 4096
@@ -39,9 +40,10 @@ module "key1" {
 }
 
 module "key2" {
-  source      = "../../../infra/terraform/modules/keyvault_key"
-  key_name    = "${local.key_name}-002"
-  keyvault_id = module.kv.output.keyvault_id
+  source          = "../../../infra/terraform/modules/keyvault_key"
+  key_name        = "${local.key_name}-002"
+  keyvault_id     = module.kv.output.keyvault_id
+  expiration_date = timeadd(timestamp(), "1h")
   key_policy = {
     key_type = "RSA"
     key_size = 4096

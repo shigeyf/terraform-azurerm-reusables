@@ -40,3 +40,11 @@ module "test2" {
     },
   ]
 }
+
+output "test1" {
+  value = module.test1.output
+}
+
+output "test2" {
+  value = module.test2.output
+}

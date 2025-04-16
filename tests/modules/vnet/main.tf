@@ -143,3 +143,26 @@ module "test6" {
   bastion_name               = "${local.bastion_host_name}0006"
   bastion_public_ip_name     = "${local.bastion_public_ip_name}0006"
 }
+
+output "test1" {
+  value = module.test1.output
+}
+
+output "test2" {
+  value = module.test2.output
+}
+
+output "test3" {
+  value = module.test2.output
+}
+
+output "test4" {
+  value = module.test2.output
+}
+output "test5" {
+  value = module.test2.output
+}
+
+output "test6" {
+  value = module.test2.output
+}

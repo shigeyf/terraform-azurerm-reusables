@@ -50,3 +50,15 @@ module "test2" {
     null_resource.wait_for_propagation,
   ]
 }
+
+output "kv" {
+  value = module.kv.output
+}
+
+output "test1" {
+  value = module.test1.output
+}
+
+output "test2" {
+  value = module.test2.output
+}
