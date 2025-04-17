@@ -10,19 +10,13 @@ variable "keyvault_id" {
   description = "KeyVault Id"
 }
 
-variable "expiration_date" {
-  type        = string
-  description = "Key expiration date"
-  default     = null
-}
-
 variable "key_policy" {
   type = object(
     {
-      key_type   = string
-      key_size   = optional(number, 2048)
-      curve_type = optional(string)
-
+      key_type        = string
+      key_size        = optional(number, 2048)
+      curve_type      = optional(string)
+      expiration_date = optional(string, null)
       rotation_policy = optional(object(
         {
           automatic = optional(object(

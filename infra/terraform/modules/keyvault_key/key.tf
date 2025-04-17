@@ -16,7 +16,7 @@ resource "azurerm_key_vault_key" "this" {
     "wrapKey",
   ]
 
-  expiration_date = var.expiration_date != null ? var.expiration_date : null
+  expiration_date = var.key_policy.expiration_date != null ? var.key_policy.expiration_date : null
 
   dynamic "rotation_policy" {
     for_each = var.key_policy.rotation_policy != null ? [1] : []
