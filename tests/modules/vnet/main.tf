@@ -144,6 +144,22 @@ module "test6" {
   bastion_public_ip_name     = "${local.bastion_public_ip_name}0006"
 }
 
+// #7 - Create VNet with Private DNS links
+module "test7" {
+  source                 = "../../../infra/terraform/modules/vnet"
+  resource_group_name    = azurerm_resource_group.this.name
+  location               = local.location
+  tags                   = local.tags
+  vnet_name              = "${local.vnet_name}0007"
+  address_prefix         = "10.10.0.0/16"
+  private_dns_zone_names = local.private_dns_zones
+
+  depends_on = [
+    azurerm_private_dns_zone.this,
+  ]
+}
+
+
 output "test1" {
   value = module.test1.output
 }
@@ -153,16 +169,21 @@ output "test2" {
 }
 
 output "test3" {
-  value = module.test2.output
+  value = module.test3.output
 }
 
 output "test4" {
-  value = module.test2.output
+  value = module.test4.output
 }
+
 output "test5" {
-  value = module.test2.output
+  value = module.test5.output
 }
 
 output "test6" {
-  value = module.test2.output
+  value = module.test6.output
+}
+
+output "test7" {
+  value = module.test7.output
 }
