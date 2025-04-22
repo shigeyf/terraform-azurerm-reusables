@@ -44,3 +44,14 @@ variable "subnets" {
   ))
   default = {}
 }
+
+variable "private_dns_zone_names" {
+  description = "Linking Private DNS Zone names"
+  type = list(object(
+    {
+      name                = string
+      resource_group_name = string
+    }
+  ))
+  default = []
+}
