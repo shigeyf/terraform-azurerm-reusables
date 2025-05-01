@@ -36,10 +36,10 @@ variable "enabled_for_template_deployment" {
 variable "purge_protection_enabled" {
   description = "Enable purge protection"
   type        = bool
-  default     = true
+  default     = false
 }
 variable "soft_delete_retention_days" {
   description = "Soft delete retention days"
   type        = number
-  default     = 90
+  default     = 7
 }
