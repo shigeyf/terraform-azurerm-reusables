@@ -1,10 +1,14 @@
 // private_endpoint.tf
 
+locals {
+  network_resource_group_name = var.network_resource_group_name != null ? var.network_resource_group_name : var.resource_group_name
+}
+
 resource "azurerm_private_endpoint" "this" {
   count               = var.enable_public_network_access ? 0 : 1
   name                = var.private_endpoint_name
   location            = var.location
-  resource_group_name = var.resource_group_name
+  resource_group_name = local.network_resource_group_name
   tags                = var.tags
   subnet_id           = var.private_endpoint_subnet_id
 

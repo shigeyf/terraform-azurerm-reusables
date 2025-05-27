@@ -11,6 +11,12 @@ variable "enable_public_network_access" {
   }
 }
 
+variable "network_resource_group_name" {
+  description = "Resource Group name for Network related resources (pre-generated resource group)"
+  type        = string
+  default     = null
+}
+
 variable "private_endpoint_name" {
   description = "Private Endpoint name"
   type        = string
