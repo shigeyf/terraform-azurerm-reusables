@@ -11,6 +11,8 @@ resource "azurerm_subnet" "this" {
   virtual_network_name = azurerm_virtual_network.this.name
   address_prefixes     = [each.value.address_prefix]
 
+  default_outbound_access_enabled = local.enable_default_outbound_access
+
   dynamic "delegation" {
     for_each = each.value.delegation != null ? each.value.delegation : []
     content {
